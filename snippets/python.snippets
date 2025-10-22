@@ -1,0 +1,49 @@
+snippet de "create statement" b
+  def ${1:function_name}(${2}):
+      ${3:return None}
+
+snippet classname "create class" b
+  class ${1:class name}:
+    def __init__(self, ${2:props}):
+      self.${2} = ${2}
+
+    def ${3:function name}(self):
+      print("Hello, my name is", self.${2})
+
+
+  p = ${1}("Swaroop")
+  p.${3}()
+
+snippet ifname "create if name" b
+  def main():
+      return None
+  if __name__ == "__main__":
+      main()
+
+
+snippet rg "range"
+  range(${1})
+
+
+snippet pg "pygame snippets"
+  import pygame
+
+  pygame.init()
+  screen = pygame.display.set_mode((1280, 720))
+  clock = pygame.time.Clock()
+  running = True
+
+  while running:
+      for event in pygame.event.get():
+          if event.type == pygame.QUIT:
+              running = False
+
+      screen.fill("white")
+
+      ##### RENDER YOUR GAME HERE
+
+      pygame.display.flip()
+
+      clock.tick(60)
+
+  pygame.quit()

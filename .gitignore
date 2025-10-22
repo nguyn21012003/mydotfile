@@ -1,0 +1,55 @@
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+# Swap, undo, backup files
+*.swp
+*.swo
+*.swn
+*.un~
+*.bak
+*.tmp
+*.orig
+
+# Session files
+Session.vim
+session.vim
+
+# Tags files
+tags
+tags.tmp
+
+# Undo files
+undo/*
+
+# Lazy.nvim directories (plugin manager)
+lazy-lock.json
+lazy/
+
+# LazyVim cache / data
+*.log
+*.cache
+*.luac
+
+# Coc.nvim cache (if used)
+.coc/
+
+# Optional: NERDTree or other tree plugin backups
+*.NERD_tree_history
+*.NERD_tree_bookmarks
+
+# Mac / Windows system files
+.DS_Store
+Thumbs.db
+
+# Ignore generated PDF/HTML from docs (if any)
+*.pdf
+*.html
+.neoconf.json
+lazyvim.json
+stylua.toml
