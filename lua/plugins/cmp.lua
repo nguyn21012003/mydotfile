@@ -25,7 +25,7 @@ return {
       local tailwind_formatter = require("tailwindcss-colorizer-cmp").formatter
       local tstag = require("nvim-ts-autotag")
       local compare = require("cmp.config.compare")
-      local copilot = require("copilot_cmp")
+      -- local copilot = require("copilot_cmp")
       local icons = {
         Text = "",
         Method = "",
@@ -91,6 +91,8 @@ return {
         end,
       })
 
+      -- copilot.setup()
+
       compare.lsp_scores = function(entry1, entry2)
         local diff
         if entry1.completion_item.score and entry2.completion_item.score then
@@ -129,7 +131,7 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 1000 },
-          -- { name = "copilot", priority = 0 },
+          -- { name = "copilot", priority = 1000 },
           { name = "path" },
           { name = "luasnip" },
           { name = "buffer" },
@@ -181,7 +183,7 @@ return {
               luasnip = "[SNIP]",
               cmdline = "[CMD]",
               path = "[PATH]",
-              copilot = "[  ]",
+              copilot = "[]",
               latex_symbols = "[LTEX]",
               spell = "[SPELL]",
             })[source]
@@ -243,6 +245,12 @@ return {
           { name = "cmdline" },
         },
       })
+      cmp.setup.cmdline({ "/", "?" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
 
       npairs.add_rules({
         Rule("%(.*%)%s*%()$", "", "python"):use_regex(true):set_end_pair_length(0),
@@ -252,8 +260,6 @@ return {
       -- 	suggestion = { enabled = false }, -- tắt ghost text
       -- 	panel = { enabled = false },
       -- })
-
-      require("copilot_cmp").setup()
 
       -- vim.api.nvim_create_autocmd("FileType", {
       -- 	pattern = { "markdown", "tex" },

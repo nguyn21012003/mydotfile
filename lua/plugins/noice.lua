@@ -18,6 +18,7 @@ return {
       },
       presets = {
         command_palette = false,
+        bottom_search = false,
       },
       messages = {
         enabled = true,
