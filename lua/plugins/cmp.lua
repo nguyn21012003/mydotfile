@@ -1,5 +1,4 @@
 return {
-  -- { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
   {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
@@ -19,27 +18,16 @@ return {
     },
     config = function()
       local cmp = require("cmp")
-      local luasnip = require("luasnip")
-      local compare = require("cmp.config.compare")
       local npairs = require("nvim-autopairs")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      local tstag = require("nvim-ts-autotag")
+      local Rule = require("nvim-autopairs.rule")
+      local luasnip = require("luasnip")
       local tailwind_formatter = require("tailwindcss-colorizer-cmp").formatter
-
-      require("copilot_cmp").setup()
-      npairs.setup({
-        check_ts = true,
-        ts_config = { python = { "string" } },
-        disable_filetype = { "TelescopePrompt" },
-      })
-      tstag.setup()
-
-      npairs.add_rules({
-        require("nvim-autopairs.rule")("%(.*%)%s*%()$", "", "python"):use_regex(true):set_end_pair_length(0),
-      })
-
+      local tstag = require("nvim-ts-autotag")
+      local compare = require("cmp.config.compare")
+      local copilot = require("copilot_cmp")
       local icons = {
-        Text = "󰉿",
+        Text = "",
         Method = "",
         Function = "",
         Constructor = "",
@@ -64,11 +52,8 @@ return {
         Event = "",
         Operator = "",
         TypeParameter = "",
-        Spell = "",
-        copilot = "",
       }
-
-      vim.api.nvim_create_autocmd("ColorScheme", {
+      vim.api.nvim_create_autocmd("User", {
         pattern = "*",
         callback = function()
           local kind_colors = {
@@ -99,6 +84,7 @@ return {
             TypeParameter = "#56b6c2",
             Spell = "#ff6ac1",
           }
+
           for kind, color in pairs(kind_colors) do
             vim.api.nvim_set_hl(0, "CmpItemKind" .. kind, { fg = color, italic = true })
           end
@@ -123,7 +109,10 @@ return {
         },
         view = { docs = { auto_open = true } },
         experimental = { ghost_text = false },
-        performance = { debounce = 0, throttle = 0 },
+        performance = {
+          debounce = 0,
+          throttle = 0,
+        },
         mapping = cmp.mapping.preset.insert({
           ["<Tab>"] = cmp.mapping.select_next_item(),
           ["<S-Tab>"] = cmp.mapping.select_prev_item(),
@@ -140,9 +129,18 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 1000 },
+          -- { name = "copilot", priority = 0 },
           { name = "path" },
           { name = "luasnip" },
           { name = "buffer" },
+          -- {
+          -- 	name = "buffer",
+          -- 	option = {
+          -- 		get_bufnrs = function()
+          -- 			return vim.api.nvim_buf_line_count(0) < 15000 and vim.api.nvim_list_bufs() or {}
+          -- 		end,
+          -- 	},
+          -- },
         }),
         sorting = {
           priority_weight = 2,
@@ -166,6 +164,17 @@ return {
             local kind = vim_item.kind
             vim_item.kind = string.format(" %s %s", icons[kind] or "󰺴", kind)
             local source = entry.source.name
+            if source == "spell" then
+              vim_item.kind = "Spell"
+            end
+            local function trim(text)
+              local max = 40
+              if text and text:len() > max then
+                text = text:sub(1, max) .. "..."
+              end
+              return text
+            end
+
             vim_item.menu = ({
               nvim_lsp = "[LSP]",
               buffer = "[BUF]",
@@ -173,13 +182,24 @@ return {
               cmdline = "[CMD]",
               path = "[PATH]",
               copilot = "[  ]",
+              latex_symbols = "[LTEX]",
               spell = "[SPELL]",
             })[source]
+            if
+              source == "vsnip"
+              or source == "cmdline"
+              or source == "buffer"
+              or source == "luasnip"
+              or source == "nvim_lsp"
+            then
+              vim_item.dup = 0
+            end
             return vim_item
           end,
         },
         window = {
           completion = cmp.config.window.bordered({
+            -- winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,Search:PmenuSel",
             winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
             max_height = 10,
             min_height = 1,
@@ -194,10 +214,28 @@ return {
           }),
         },
       })
+      cmp.setup.filetype("python", {
+        view = {
+          docs = { auto_open = true },
+        },
+      })
+
+      cmp.setup.filetype("markdown", {
+        enabled = true,
+      })
+
+      npairs.setup({
+        check_ts = true,
+        ts_config = {
+          python = { "string" },
+        },
+        disable_filetype = { "TelescopePrompt" },
+      })
+
+      tstag.setup({})
 
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-      -- Command line completion
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
@@ -205,6 +243,25 @@ return {
           { name = "cmdline" },
         },
       })
+
+      npairs.add_rules({
+        Rule("%(.*%)%s*%()$", "", "python"):use_regex(true):set_end_pair_length(0),
+      })
+
+      -- require("copilot").setup({
+      -- 	suggestion = { enabled = false }, -- tắt ghost text
+      -- 	panel = { enabled = false },
+      -- })
+
+      require("copilot_cmp").setup()
+
+      -- vim.api.nvim_create_autocmd("FileType", {
+      -- 	pattern = { "markdown", "tex" },
+      -- 	callback = function()
+      -- 		-- vim.opt.spell = true
+      -- 		-- vim.opt.spelllang = { "en_us" }
+      -- 	end,
+      -- })
     end,
   },
 }

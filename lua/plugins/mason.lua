@@ -20,10 +20,28 @@ return {
             package_pending = "➜",
             package_uninstalled = "✗",
           },
+          border = "rounded",
         },
-        border = "single",
       },
     },
-    "neovim/nvim-lspconfig",
+    {
+      "neovim/nvim-lspconfig",
+      opts = function(_, opts)
+        -- Giữ lại server config cũ
+        opts.servers = vim.tbl_extend("force", opts.servers or {}, {
+          tailwindcss = {},
+          pyright = {},
+        })
+
+        -- Thêm style cho cửa sổ diagnostics
+        opts.diagnostics = vim.tbl_deep_extend("force", opts.diagnostics or {}, {
+          float = {
+            border = "rounded",
+            style = "minimal",
+            source = "always",
+          },
+        })
+      end,
+    },
   },
 }

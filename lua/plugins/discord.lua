@@ -9,8 +9,8 @@ return {
         icon = nil,
       },
       display = {
-        theme = "catppuccin",
-        flavor = "accent",
+        theme = "default",
+        flavor = "dark",
         view = "full",
         swap_fields = false,
         swap_icons = false,
@@ -30,7 +30,7 @@ return {
             return opts.repo_url and "View Repository" or "Website"
           end,
           url = function(opts)
-            return opts.repo_url or "https://example.com"
+            return opts.repo_url or "https://nguyen-is-me.vercel.app/"
           end,
         },
       },

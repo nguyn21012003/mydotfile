@@ -42,7 +42,7 @@ end, { desc = "Run isort silently" }, opts)
 -- end, { desc = "Format buffer" }, opts)
 
 -- Hover
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+
 map("n", "K", function()
   vim.lsp.buf.hover({
     border = "rounded",
@@ -55,7 +55,6 @@ end, opts)
 map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
 map("n", "<C-k>", vim.lsp.buf.signature_help)
 -- Alpha
-map("n", "<A-q>", "<cmd>Alpha<CR>", opts)
 
 -- Tabs & Buffers
 map("n", "<leader>tn", "<cmd>tabnew<CR>", opts)
@@ -70,7 +69,7 @@ end
 map("n", "W", "<cmd>bd<CR>", opts)
 
 -- Floaterm
-map("n", "<localleader>lt", "<cmd>FloatermNew<CR>", opts)
+map("n", "<localleader>lt", "<cmd>lua Snacks.terminal.toggle()<CR>", opts)
 
 -- Markdown preview
 map("n", "<leader>mm", "<cmd>MarkdownPreview<CR>", { desc = "Markdown Preview" }, opts)
@@ -104,14 +103,14 @@ map("n", "<localleader>z", function()
 end, { desc = "Toggle Zen Mode" })
 
 -- map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" }, opts)
-map("n", "<leader>fe", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", { desc = "File Browser" }, opts)
+-- map("n", "<leader>fe", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", { desc = "File Browser" }, opts)
 -- map("n", "<leader>fr", "<cmd>Telescope oldfiles<CR>", { desc = "Recent files" }, opts)
 -- map("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Live grep" }, opts)
-map("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Fuzzy search in buffer" }, opts)
+-- map("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Fuzzy search in buffer" }, opts)
 -- map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" }, opts)
-map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" }, opts)
-map("n", "<leader>fds", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "LSP document symbols" }, opts)
-map("n", "<leader>fdn", "<cmd>Telescope diagnostics<CR>", { desc = "LSP diagnostics" }, opts)
+-- map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" }, opts)
+-- map("n", "<leader>fds", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "LSP document symbols" }, opts)
+-- map("n", "<leader>fdn", "<cmd>Telescope diagnostics<CR>", { desc = "LSP diagnostics" }, opts)
 --
 -- --- Git
 -- map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Git commits" }, opts)
@@ -133,4 +132,41 @@ map("n", "<leader>rn", function()
   vim.lsp.buf.rename()
 end, { desc = "Rename Symbol" })
 
-vim.keymap.set("n", "<leader>nn", ":ObsidianNew<CR>", { desc = "Create new Obsidian note" })
+-- vim.keymap.set("n", "<leader>nn", ":ObsidianNew<CR>", { desc = "Create new Obsidian note" })
+
+local function create_todo_file()
+  local todo_dir = vim.fn.expand("~/notes/todo/")
+  if vim.fn.isdirectory(todo_dir) == 0 then
+    vim.fn.mkdir(todo_dir, "p")
+  end
+
+  local date = os.date("%Y-%m-%d")
+  local file_path = string.format("%stodo-%s.md", todo_dir, date)
+
+  if vim.fn.filereadable(file_path) == 0 then
+    local template = {
+      "# 📝 TODO",
+      "",
+      "## Date: " .. date,
+      "",
+      "### Tasks",
+      "- [ ] ",
+      "",
+      "---",
+    }
+    vim.fn.writefile(template, file_path)
+  end
+
+  vim.cmd("edit " .. file_path)
+end
+
+local function open_todo_dir()
+  local todo_dir = vim.fn.expand("~/notes/todo/")
+  if vim.fn.isdirectory(todo_dir) == 0 then
+    vim.fn.mkdir(todo_dir, "p")
+  end
+  require("snacks").explorer({ cwd = todo_dir })
+end
+
+vim.keymap.set("n", "<leader>td", create_todo_file, { desc = "Create todo file" })
+vim.keymap.set("n", "<leader>to", open_todo_dir, { desc = "Open todo folder" })

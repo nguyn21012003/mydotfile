@@ -37,7 +37,7 @@ return {
             statusline = { "NvimTree", "packer", "alpha" },
             winbar = { "help", "qf", "Trouble", "SearchBoxPrompt", "tex" },
           },
-          theme = "tokyonight-storm",
+          theme = "tokyonight",
           icons_enabled = true,
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
@@ -81,7 +81,7 @@ return {
             },
           },
           lualine_z = {
-            { progress, color = { fg = colors.magenta, gui = "bold" } },
+            { progress, color = { fg = colors.orange, gui = "bold" } },
           },
         },
       }
