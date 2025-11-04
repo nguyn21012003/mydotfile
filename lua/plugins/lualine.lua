@@ -1,15 +1,15 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
-    event = "VeryLazy", -- lazy load khi cần
+    event = "VeryLazy",
     dependencies = {
       "SmiteshP/nvim-navic",
-      "lewis6991/gitsigns.nvim", -- thay git_blame nếu muốn
-      "arkav/lualine-lsp-progress", -- nếu bạn dùng lsp_progress plugin
+      "lewis6991/gitsigns.nvim",
+      "arkav/lualine-lsp-progress",
     },
     opts = function()
       local navic = require("nvim-navic")
-      local git_blame = require("gitsigns") -- git_blame thay thế
+      local git_blame = require("gitsigns")
       local colors = {
         yellow = "#ECBE7B",
         cyan = "#008080",
@@ -85,8 +85,6 @@ return {
           },
         },
       }
-
-      -- LSP Progress
       table.insert(config.sections.lualine_x, {
         "lsp_progress",
         display_components = { "lsp_client_name", "spinner", { "title", "percentage", "message" } },

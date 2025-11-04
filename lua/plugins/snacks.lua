@@ -11,8 +11,11 @@ return {
       dim = {
         enabled = false,
       },
+      image = {
+        enabled = false,
+      },
       terminal = {
-        enabled = true,
+        enabled = false,
         size = {
           height = 0.4,
         },

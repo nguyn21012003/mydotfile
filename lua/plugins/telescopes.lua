@@ -6,7 +6,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
     },
-    config = function()
+    opts = function()
       local telescope = require("telescope")
       local fb_actions = require("telescope").extensions.file_browser.actions
 

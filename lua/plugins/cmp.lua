@@ -1,7 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
+    event = "VeryLazy",
     dependencies = {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
@@ -27,31 +27,52 @@ return {
       local compare = require("cmp.config.compare")
       -- local copilot = require("copilot_cmp")
       local icons = {
-        Text = "",
-        Method = "",
-        Function = "",
-        Constructor = "",
-        Field = "",
-        Variable = "",
-        Class = "",
-        Interface = "",
-        Module = "",
-        Property = "",
-        Unit = "",
-        Value = "",
-        Enum = "",
-        Keyword = "",
-        Snippet = "",
-        Color = "",
-        File = "",
-        Reference = "",
-        Folder = "",
-        EnumMember = "",
-        Constant = "",
-        Struct = "",
-        Event = "",
-        Operator = "",
-        TypeParameter = "",
+        Break = "󰙧",
+        Call = "󰃷",
+        Case = "󰬶",
+        Class = "󰠱",
+        Color = "󰏘",
+        Constant = "󰏿",
+        Constructor = "",
+        Continue = "󰞘",
+        Declaration = "󰙠",
+        Delete = "󱟁",
+        Enum = "",
+        EnumMember = "",
+        Event = "",
+        Field = "󰇽",
+        File = "󰈙",
+        Folder = "󰉋",
+        Fragment = "",
+        Function = "󰊕",
+        Implementation = "",
+        Interface = "",
+        Keyword = "󰌋",
+        List = "󰅪",
+        Loop = "󰑖",
+        Method = "󰆧",
+        Module = "",
+        Namespace = "󰌗",
+        Operator = "󰆕",
+        Package = "",
+        Property = "󰜢",
+        Reference = "",
+        Regex = "",
+        Snippet = "",
+        Statement = "󰅩",
+        Struct = "",
+        Switch = "",
+        Text = "󰉿",
+        TypeParameter = "󰅲",
+        Undefined = "",
+        Unit = "",
+        Value = "󰎠",
+        Variable = "",
+        Macro = "",
+        Parameter = "",
+        StaticMethod = "",
+        Terminal = "",
+        TypeAlias = "",
       }
       vim.api.nvim_create_autocmd("User", {
         pattern = "*",
@@ -168,13 +189,6 @@ return {
             local source = entry.source.name
             if source == "spell" then
               vim_item.kind = "Spell"
-            end
-            local function trim(text)
-              local max = 40
-              if text and text:len() > max then
-                text = text:sub(1, max) .. "..."
-              end
-              return text
             end
 
             vim_item.menu = ({

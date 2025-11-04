@@ -1,5 +1,6 @@
 return {
   "mason-org/mason-lspconfig.nvim",
+  lazy = true,
   opts = {
     ensure_installed = {
       "ts_ls",
@@ -66,7 +67,7 @@ return {
               "--all-scopes-completion",
             },
           },
-          copilot = {},
+          -- copilot = {},
           fortls = {},
           lua_ls = {
             root_markers = {
@@ -81,6 +82,7 @@ return {
             },
             settings = {
               Lua = {
+                version = "LuaJit",
                 diagnostics = { globals = { "vim" } },
                 workspace = {
                   library = {},
@@ -99,6 +101,8 @@ return {
           },
         },
         diagnostics = {
+          virtual_text = true,
+          -- virtual_lines = true,
           float = {
             border = "rounded",
             style = "minimal",

@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.py",
-  command = "silent! !black --line-length 150 %",
+  command = "silent! !black --line-length 180 %",
 })
 
 vim.o.swapfile = false
@@ -27,11 +27,7 @@ map("n", "<C-r>", "<cmd>SearchBoxReplace<CR>", opts)
 -- Format
 -- map("n", "<leader>fm", ":!isort %<CR>", { desc = "Run isort on file" }, opts)
 
-vim.keymap.set("n", "<leader>fm", function()
-  local file = vim.fn.expand("%") -- path file hiện tại
-  vim.fn.system({ "isort", file })
-  vim.cmd("edit") -- reload file sau khi format
-end, { desc = "Run isort silently" }, opts)
+map("n", "<leader>fmp", "<cmd>LspPyrightOrganizeImports<CR>", { desc = "Format imports python", silent = true })
 
 -- map("n", "<leader>fm", function()
 --   vim.lsp.buf.format({
@@ -66,7 +62,7 @@ for i = 1, 9 do
 end
 
 -- Close buffer
-map("n", "W", "<cmd>bd<CR>", opts)
+-- map("n", "W", "<cmd>bd<CR>", opts)
 
 -- Floaterm
 map("n", "<localleader>lt", "<cmd>lua Snacks.terminal.toggle()<CR>", opts)
@@ -83,9 +79,8 @@ map("n", "U", "<cmd>redo<CR>", opts)
 -- Neoformat
 map("n", "<leader>vf", "<cmd>Neoformat<CR>", opts)
 
--- Di chuyển dòng trong visual mode
-map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line above" }, opts)
-map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line below" }, opts)
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line above", silent = true }) -- Di chuyển dòng trong visual mode
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line below", silent = true })
 
 -- Tự động bật wrap cho markdown, tex, python
 vim.api.nvim_create_autocmd("FileType", {
@@ -132,8 +127,6 @@ map("n", "<leader>rn", function()
   vim.lsp.buf.rename()
 end, { desc = "Rename Symbol" })
 
--- vim.keymap.set("n", "<leader>nn", ":ObsidianNew<CR>", { desc = "Create new Obsidian note" })
-
 local function create_todo_file()
   local todo_dir = vim.fn.expand("~/notes/todo/")
   if vim.fn.isdirectory(todo_dir) == 0 then
@@ -170,3 +163,6 @@ end
 
 vim.keymap.set("n", "<leader>td", create_todo_file, { desc = "Create todo file" })
 vim.keymap.set("n", "<leader>to", open_todo_dir, { desc = "Open todo folder" })
+
+vim.keymap.del("n", "<C-Up>")
+vim.keymap.del("n", "<C-Down>")
