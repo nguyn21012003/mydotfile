@@ -2,14 +2,14 @@ return {
   "mason-org/mason-lspconfig.nvim",
   lazy = true,
   opts = {
-    ensure_installed = {
-      "ts_ls",
-      "lua_ls",
-      "pyright",
-      "fortls",
-      "tailwindcss",
-      "clangd",
-    },
+    -- ensure_installed = {
+    --   -- "ts_ls",
+    --   -- "lua_ls",
+    --   -- "pyright",
+    --   -- "fortls",
+    --   -- "tailwindcss",
+    --   -- "clangd",
+    -- },
   },
   dependencies = {
     {
@@ -39,6 +39,15 @@ return {
       },
     },
     {
+      "rachartier/tiny-inline-diagnostic.nvim",
+      event = "VeryLazy",
+      priority = 1000,
+      config = function()
+        require("tiny-inline-diagnostic").setup({ preset = "classic" })
+        vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+      end,
+    },
+    {
       "neovim/nvim-lspconfig",
       lazy = true,
       opts = {
@@ -52,61 +61,75 @@ return {
               ".git",
             },
           },
-          pyright = {
-            filetypes = { "python" },
-            root_markers = {
-              ".git",
-            } or vim.fn.getcwd(),
-            cmd = { "pyright-langserver", "--stdio" },
-          },
-          clangd = {
-            cmd = {
-              "clangd",
-              "--query-driver=C:/Users/Nguyen/scoop/apps/mingw/current/bin/g++.exe",
-              "--header-insertion=never",
-              "--all-scopes-completion",
-            },
-          },
-          -- copilot = {},
-          fortls = {},
-          lua_ls = {
-            root_markers = {
-              ".git",
-              "stylua.toml",
-              ".stylua.toml",
-              ".luarc.json",
-              ".luarc.jsonc",
-              ".luacheckrc",
-              "selene.toml",
-              "selene.yml",
-            },
-            settings = {
-              Lua = {
-                version = "LuaJit",
-                diagnostics = { globals = { "vim" } },
-                workspace = {
-                  library = {},
-                  checkThirdParty = false,
-                  ignoreDir = {
-                    "C:/Users/Nguyen/Documents/",
-                    "C:/Users/Nguyen/Downloads/",
-                    "C:/Users/Nguyen/AppData/Roaming/",
-                    "C:/Users/Nguyen/.cache/",
-                    "C:/",
+          ruff = {
+            on_attach = function(client)
+              client.server_capabilities.hoverProvider = false
+            end,
+            init_options = {
+              settings = {
+                organizeImports = true,
+                lint = {
+                  select = { "F841", "ARG", "F401", "A", "RUF059", "F", "PTH" },
+                  ignore = { "PTH123" },
+                  rule = {
+                    F841 = "hint",
+                    F401 = "hint",
+                    ARG001 = "hint",
+                    A001 = "warning",
+                    RUF059 = "hint",
                   },
                 },
-                telemetry = { enable = false },
               },
             },
           },
+          -- clangd = {
+          --   cmd = {
+          --     "clangd",
+          --     "--query-driver=C:/Users/Nguyen/scoop/apps/mingw/current/bin/g++.exe",
+          --     "--header-insertion=never",
+          --     "--all-scopes-completion",
+          --   },
+          -- },
+          -- copilot = {},
+          fortls = {},
+          -- lua_ls = {
+          --   root_markers = {
+          --     ".git",
+          --     "stylua.toml",
+          --     ".stylua.toml",
+          --     ".luarc.json",
+          --     ".luarc.jsonc",
+          --     ".luacheckrc",
+          --     "selene.toml",
+          --     "selene.yml",
+          --   },
+          --   settings = {
+          --     Lua = {
+          --       version = "LuaJit",
+          --       diagnostics = { globals = { "vim" } },
+          --       workspace = {
+          --         library = {},
+          --         checkThirdParty = false,
+          --         ignoreDir = {
+          --           "C:/Users/Nguyen/Documents/",
+          --           "C:/Users/Nguyen/Downloads/",
+          --           "C:/Users/Nguyen/AppData/Roaming/",
+          --           "C:/Users/Nguyen/.cache/",
+          --           "C:/",
+          --         },
+          --       },
+          --       telemetry = { enable = false },
+          --     },
+          --   },
+          -- },
         },
         diagnostics = {
-          virtual_text = true,
+          virtual_text = false,
           -- virtual_lines = true,
           float = {
             border = "rounded",
             style = "minimal",
-            source = "always",
+            -- source = "always",
           },
         },
       },

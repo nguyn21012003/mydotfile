@@ -13,10 +13,10 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.py",
-  command = "silent! !black --line-length 180 %",
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--   pattern = "*.py",
+--   command = "silent! !black --line-length 180 %",
+-- })
 
 vim.o.swapfile = false
 
@@ -27,7 +27,7 @@ map("n", "<C-r>", "<cmd>SearchBoxReplace<CR>", opts)
 -- Format
 -- map("n", "<leader>fm", ":!isort %<CR>", { desc = "Run isort on file" }, opts)
 
-map("n", "<leader>fmp", "<cmd>LspPyrightOrganizeImports<CR>", { desc = "Format imports python", silent = true })
+map("n", "<leader>fmp", ":!isort %<CR>", { desc = "Format imports python", silent = true, noremap = true })
 
 -- map("n", "<leader>fm", function()
 --   vim.lsp.buf.format({
@@ -49,7 +49,7 @@ map("n", "K", function()
 end, opts)
 
 map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
-map("n", "<C-k>", vim.lsp.buf.signature_help)
+-- map("n", "<C-k>", vim.lsp.buf.signature_help)
 -- Alpha
 
 -- Tabs & Buffers
@@ -164,5 +164,5 @@ end
 vim.keymap.set("n", "<leader>td", create_todo_file, { desc = "Create todo file" })
 vim.keymap.set("n", "<leader>to", open_todo_dir, { desc = "Open todo folder" })
 
-vim.keymap.del("n", "<C-Up>")
-vim.keymap.del("n", "<C-Down>")
+-- vim.keymap.del("n", "<C-Up>")
+-- vim.keymap.del("n", "<C-Down>")

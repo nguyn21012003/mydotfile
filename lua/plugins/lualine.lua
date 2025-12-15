@@ -37,7 +37,7 @@ return {
             statusline = { "NvimTree", "packer", "alpha" },
             winbar = { "help", "qf", "Trouble", "SearchBoxPrompt", "tex" },
           },
-          theme = "tokyonight",
+          theme = "tokyonight-moon",
           icons_enabled = true,
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
@@ -52,18 +52,18 @@ return {
           lualine_z = {},
         },
         winbar = {
-          lualine_a = {
-            { "filename", path = 1 },
-            {
-              function()
-                return navic.get_location()
-              end,
-              cond = function()
-                return navic.is_available()
-              end,
-            },
-          },
-          lualine_y = {},
+          -- lualine_a = {
+          --   { "filename", path = 1 },
+          --   {
+          --     function()
+          --       return navic.get_location()
+          --     end,
+          --     cond = function()
+          --       return navic.is_available()
+          --     end,
+          --   },
+          -- },
+          -- lualine_y = {},
         },
         sections = {
           lualine_c = { {} },

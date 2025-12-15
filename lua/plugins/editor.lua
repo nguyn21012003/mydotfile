@@ -7,34 +7,14 @@ return {
         tailwind = true,
       },
       cmp_docs = { always_update = true },
+      filetypes = {
+        "!python",
+      },
+      buftypes = {
+        "*",
+        "!prompt",
+        "!popup",
+      },
     },
-    -- config = function()
-    --   local colorizer = require("colorizer")
-    --
-    --   colorizer.setup({
-    --     tailwind = true,
-    --     tailwind_opts = {
-    --       update_names = true,
-    --     },
-    --     filetypes = {
-    --       -- "!python",
-    --       "!typescriptreact",
-    --     },
-    --     buftypes = {
-    --       "*",
-    --       "!prompt",
-    --       "!popup",
-    --     },
-    --     cmp_docs = { always_update = true },
-    --   })
-    --   vim.opt.list = true
-    --   vim.opt.listchars = {
-    --     tab = "| ",
-    --     trail = "·",
-    --     extends = "…",
-    --     precedes = "…",
-    --     nbsp = "␣",
-    --   }
-    -- end,
   },
 }

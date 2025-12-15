@@ -19,7 +19,7 @@ vim.g.vimtex_view_viewer_method = "SumatraPDF"
 vim.g.vimtex_quickfix_mode = 0
 vim.g.vimtex_quickfix_open_on_warning = 0
 -- vim.g.tex_conceal = "abcg"
-vim.g.tex_conceal = "abdgmcs"
+vim.g.tex_conceal = ""
 vim.g.vimtex_complete_enabled = 0
 vim.g.vimtex_indent_enabled = 0
 vim.g.vimtex_imaps_enabled = 0
@@ -60,4 +60,22 @@ vim.cmd([[
       hi! link qfLineNr Normal
       hi! link EndOfBuffer LineNr
       hi! link Conceal LocalIdent
-    ]])
+      ]])
+
+vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
+  group = vim.api.nvim_create_augroup("fuck_shada_temp", { clear = true }),
+  pattern = { "*" },
+  callback = function()
+    local status = 0
+    for _, f in ipairs(vim.fn.globpath(vim.fn.stdpath("data") .. "/shada", "*tmp*", false, true)) do
+      if vim.tbl_isempty(vim.fn.readfile(f)) then
+        status = status + vim.fn.delete(f)
+      end
+    end
+    if status ~= 0 then
+      vim.notify("Could not delete empty temporary ShaDa files.", vim.log.levels.ERROR)
+      vim.fn.getchar()
+    end
+  end,
+  desc = "Delete empty temp ShaDa files",
+})
