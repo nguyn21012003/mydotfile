@@ -9,11 +9,20 @@ return {
       cmp_docs = { always_update = true },
       filetypes = {
         "!python",
+        "!tex",
       },
       buftypes = {
         "*",
         "!prompt",
         "!popup",
+      },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      highlight = {
+        -- disable = { "latex", "tex" },
       },
     },
   },

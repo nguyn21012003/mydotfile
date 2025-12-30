@@ -48,13 +48,13 @@ local icons = {
 }
 
 return {
-
   {
     "saghen/blink.cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "rafamadriz/friendly-snippets",
       "roobert/tailwindcss-colorizer-cmp.nvim",
+      "erooke/blink-cmp-latex",
       {
         "saghen/blink.compat",
         optional = true, -- make optional so it's only enabled if any extras need it
@@ -63,6 +63,21 @@ return {
       },
     },
     opts = {
+      snippets = {
+        preset = "luasnip",
+      },
+      sources = {
+        default = { "latex" },
+        providers = {
+          latex = {
+            name = "Latex",
+            module = "blink-cmp-latex",
+            opts = {
+              insert_command = true,
+            },
+          },
+        },
+      },
       completion = {
         ghost_text = {
           enabled = false,
@@ -93,6 +108,7 @@ return {
                     LSP = "[LSP]",
                     Buffer = "[BUF]",
                     Snippets = "[SNIP]",
+                    Latex_symbols = "[LTEX]",
                     Path = "[PATH]",
                     Spell = "[SPELL]",
                     Cmdline = "[CMD]",

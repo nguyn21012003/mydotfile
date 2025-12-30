@@ -1,5 +1,112 @@
 # -- SNIPPETS --
 
+snippet homework "Basic template for home work" b
+  \documentclass[a4paper, 11pt]{article}
+  %\usepackage[utf8]{vietnam}
+  \usepackage[utf8]{inputenc}
+  \usepackage{anyfontsize,fontsize}
+  \changefontsize[13pt]{13pt}
+  \usepackage{commath}
+  \usepackage[d]{esvect}
+  \usepackage{parskip}
+  \usepackage{xcolor}
+  \usepackage{amssymb}
+  \usepackage{slashed,cancel}
+  \usepackage{indentfirst}
+  \usepackage{pdfpages}
+  \usepackage{graphicx}
+  \usepackage{upgreek}
+  \usepackage{nccmath,nicematrix}
+  \usepackage{mathtools}
+  \usepackage{amsmath,systeme,amsthm,amsfonts}
+  \usepackage[thinc]{esdiff}
+  \usepackage{hyperref}
+  \usepackage{bm,physics}
+  \usepackage{fancyhdr}
+
+  \usepackage[most,many,breakable]{tcolorbox}
+
+  \definecolor{mytheorembg}{HTML}{F2F2F9}
+  \definecolor{mytheoremfr}{HTML}{00007B}
+  %footnote
+  \pagestyle{fancy}
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhf{}%
+  \fancyfoot[L]{Theoretical Physics}%
+  \fancyfoot[C]{\hspace{6.5cm} \thepage}%
+
+
+  \usepackage{geometry}
+  \geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+  }
+
+
+  \newcommand{\image}[1]{
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=8.0cm,height=5.0cm]{pic/#1}
+    \label{#1}
+  \end{figure}
+  }
+  \renewcommand{\l}{\ell}
+  \newcommand{\dps}{\displaystyle}
+  \newcommand{\mean}[1]{\langle{#1}\rangle}
+  \newcommand{\f}[2]{\dfrac{#1}{#2}}
+  \newcommand{\at}[2]{\bigg\rvert_{#1}^{#2} }
+
+  \newcommand{\Qed}{\begin{flushright}\qed\end{flushright}}
+
+  \newcommand{\solve}[1]{\setlength{\parindent}{0cm}\textbf{\textit{Solution: }}\setlength{\parindent}{1cm}#1 \Qed}
+
+  \renewcommand{\baselinestretch}{2.0}
+
+  \tcbuselibrary{theorems,skins,hooks}
+  \newtcbtheorem{problem}{Problem}
+  {%
+    enhanced,
+    breakable,
+    colback = mytheorembg,
+    frame hidden,
+    boxrule = 0sp,
+    borderline west = {2pt}{0pt}{mytheoremfr},
+    sharp corners,
+    detach title,
+    % before upper = \tcbtitle\par\smallskip,
+    before upper* = \tcbtitle\par\smallskip,
+    coltitle = mytheoremfr,
+    fonttitle = \bfseries\sffamily,
+    description font = \mdseries,
+    separator sign none,
+    segmentation style={solid, mytheoremfr},
+  }
+  {p}
+
+  \title{\Huge{A note on Mathematic Methods}}
+
+  \hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue!70!red,
+    pdftitle={MM},
+    pdfpagemode=FullScreen,
+  }
+
+  \urlstyle{same}
+
+  \begin{document}
+  \setlength{\parindent}{20pt}
+  \newpage
+  \author{Tran Khoi Nguyen \\ Theoretical Physics}
+  \maketitle
+  \tableofcontents
+
+
+  \end{document}
 
 # new glossary entry
 snippet gloss "Glossary Entry"  b
@@ -442,7 +549,7 @@ snippet def "Definition" bi
 	\end{definition}
 
 snippet prob "Problem" bi
-	\begin{problem}[$1]
+	\begin{problem}{$1}{p$2}
 		${0:${VISUAL}}
 	\end{problem}
 
@@ -456,7 +563,14 @@ snippet example "Example" bi
 		${0:${VISUAL}}
 	\end{example}
 
+snippet FourierSeries "Fourier Series snippets" b
+  \begin{gather}
+    \mathcal{F}[ f(\theta) ] = \frac{a_{0}}{2} + \sum_{n=1}^{\infty} a_{n} \cos n\theta + b_{n} \sin n \theta,
+  \end{gather}
 
+snippet part "∂/∂x" w
+  \frac{\partial ${1:V}}{\partial ${2:x}} $0
 
-
+snippet ppart "∂^{2}/∂x^{2}" w
+  \frac{\partial^{2} ${1:V}}{\partial ${2:x}^{2}} $0
 

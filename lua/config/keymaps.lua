@@ -166,3 +166,15 @@ vim.keymap.set("n", "<leader>to", open_todo_dir, { desc = "Open todo folder" })
 
 -- vim.keymap.del("n", "<C-Up>")
 -- vim.keymap.del("n", "<C-Down>")
+
+--- Normal mode
+vim.keymap.set("n", "<S-Up>", "<Nop>")
+vim.keymap.set("n", "<S-Down>", "<Nop>")
+
+-- Insert mode
+vim.keymap.set("i", "<S-Up>", "<Nop>")
+vim.keymap.set("i", "<S-Down>", "<Nop>")
+
+-- Visual mode
+vim.keymap.set("v", "<S-Up>", "<Nop>")
+vim.keymap.set("v", "<S-Down>", "<Nop>")

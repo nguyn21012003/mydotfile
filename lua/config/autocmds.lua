@@ -18,8 +18,9 @@ vim.g.tex_flavor = "latex"
 vim.g.vimtex_view_viewer_method = "SumatraPDF"
 vim.g.vimtex_quickfix_mode = 0
 vim.g.vimtex_quickfix_open_on_warning = 0
--- vim.g.tex_conceal = "abcg"
-vim.g.tex_conceal = ""
+-- vim.g.tex_conceal = "abdmg"
+-- vim.opt.conceallevel = 2
+-- vim.g.tex_conceal = ""
 vim.g.vimtex_complete_enabled = 0
 vim.g.vimtex_indent_enabled = 0
 vim.g.vimtex_imaps_enabled = 0
@@ -78,4 +79,12 @@ vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
     end
   end,
   desc = "Delete empty temp ShaDa files",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tex",
+  callback = function()
+    vim.b.minipairs_disable = true
+    -- vim.cmd.colorscheme("tokyonight-day")
+  end,
 })
