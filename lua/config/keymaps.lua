@@ -7,10 +7,10 @@ local opts = { noremap = true, silent = true }
 
 -- Formatter cho Python
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "python",
-  callback = function()
-    map("n", "<C-s>", ":w<CR>:!black --line-length 150 %<CR>:e<CR>", opts)
-  end,
+	pattern = "python",
+	callback = function()
+		map("n", "<C-s>", ":w<CR>:!black --line-length 150 %<CR>:e<CR>", opts)
+	end,
 })
 
 -- vim.api.nvim_create_autocmd("BufWritePost", {
@@ -40,12 +40,12 @@ map("n", "<leader>fmp", ":!isort %<CR>", { desc = "Format imports python", silen
 -- Hover
 
 map("n", "K", function()
-  vim.lsp.buf.hover({
-    border = "rounded",
-    max_height = 20,
-    max_width = 130,
-    close_events = { "BufLeave", "WinLeave", "LSPDetach" },
-  })
+	vim.lsp.buf.hover({
+		border = "rounded",
+		max_height = 20,
+		max_width = 130,
+		close_events = { "BufLeave", "WinLeave", "LSPDetach" },
+	})
 end, opts)
 
 map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
@@ -58,7 +58,7 @@ map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", opts)
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", opts)
 
 for i = 1, 9 do
-  map("n", "<A-" .. i .. ">", "<cmd>BufferLineGoToBuffer " .. i .. "<CR>", opts)
+	map("n", "<A-" .. i .. ">", "<cmd>BufferLineGoToBuffer " .. i .. "<CR>", opts)
 end
 
 -- Close buffer
@@ -84,8 +84,8 @@ map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line below", silent = true })
 
 -- Tự động bật wrap cho markdown, tex, python
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "tex", "python" },
-  command = "setlocal wrap linebreak",
+	pattern = { "markdown", "tex", "python" },
+	command = "setlocal wrap linebreak",
 })
 
 map("n", "<leader>gg", "<cmd>LazyGit<CR>", opts)
@@ -94,7 +94,7 @@ map("n", "<Esc>", "<Cmd>nohlsearch<CR>")
 map("n", "<leader>ds", vim.lsp.buf.document_symbol, { desc = "Document symbols" })
 
 map("n", "<localleader>z", function()
-  Snacks.zen()
+	Snacks.zen()
 end, { desc = "Toggle Zen Mode" })
 
 -- map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" }, opts)
@@ -118,47 +118,47 @@ end, { desc = "Toggle Zen Mode" })
 map("n", "<leader>cm", "<cmd>Mason<CR>", { desc = "Mason config" }, opts)
 
 vim.api.nvim_create_user_command("CopyBufName", function()
-  local path = vim.fn.bufname("%")
-  vim.fn.setreg("+", path)
-  print("Copied: " .. path)
+	local path = vim.fn.bufname("%")
+	vim.fn.setreg("+", path)
+	print("Copied: " .. path)
 end, {})
 
 map("n", "<leader>rn", function()
-  vim.lsp.buf.rename()
+	vim.lsp.buf.rename()
 end, { desc = "Rename Symbol" })
 
 local function create_todo_file()
-  local todo_dir = vim.fn.expand("~/notes/todo/")
-  if vim.fn.isdirectory(todo_dir) == 0 then
-    vim.fn.mkdir(todo_dir, "p")
-  end
+	local todo_dir = vim.fn.expand("~/notes/todo/")
+	if vim.fn.isdirectory(todo_dir) == 0 then
+		vim.fn.mkdir(todo_dir, "p")
+	end
 
-  local date = os.date("%Y-%m-%d")
-  local file_path = string.format("%stodo-%s.md", todo_dir, date)
+	local date = os.date("%Y-%m-%d")
+	local file_path = string.format("%stodo-%s.md", todo_dir, date)
 
-  if vim.fn.filereadable(file_path) == 0 then
-    local template = {
-      "# 📝 TODO",
-      "",
-      "## Date: " .. date,
-      "",
-      "### Tasks",
-      "- [ ] ",
-      "",
-      "---",
-    }
-    vim.fn.writefile(template, file_path)
-  end
+	if vim.fn.filereadable(file_path) == 0 then
+		local template = {
+			"# 📝 TODO",
+			"",
+			"## Date: " .. date,
+			"",
+			"### Tasks",
+			"- [ ] ",
+			"",
+			"---",
+		}
+		vim.fn.writefile(template, file_path)
+	end
 
-  vim.cmd("edit " .. file_path)
+	vim.cmd("edit " .. file_path)
 end
 
 local function open_todo_dir()
-  local todo_dir = vim.fn.expand("~/notes/todo/")
-  if vim.fn.isdirectory(todo_dir) == 0 then
-    vim.fn.mkdir(todo_dir, "p")
-  end
-  require("snacks").explorer({ cwd = todo_dir })
+	local todo_dir = vim.fn.expand("~/notes/todo/")
+	if vim.fn.isdirectory(todo_dir) == 0 then
+		vim.fn.mkdir(todo_dir, "p")
+	end
+	require("snacks").explorer({ cwd = todo_dir })
 end
 
 vim.keymap.set("n", "<leader>td", create_todo_file, { desc = "Create todo file" })
@@ -178,3 +178,6 @@ vim.keymap.set("i", "<S-Down>", "<Nop>")
 -- Visual mode
 vim.keymap.set("v", "<S-Up>", "<Nop>")
 vim.keymap.set("v", "<S-Down>", "<Nop>")
+
+vim.keymap.set({ "n", "v", "i" }, "<PageUp>", "<Nop>", opts)
+vim.keymap.set({ "n", "v", "i" }, "<PageDown>", "<Nop>", opts)
