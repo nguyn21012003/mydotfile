@@ -8,11 +8,15 @@ snippet classname "create class" b
       self.${2} = ${2}
 
 snippet ifname "create if name" b
-  def main():
-      return None
   if __name__ == "__main__":
       main()
 
+snippet innit "create template" b
+  def main():
+      return None
+
+  if __name__ == "__main__":
+      main()
 
 snippet rg "range"
   range(${1})
@@ -20,23 +24,30 @@ snippet rg "range"
 
 snippet pg "pygame snippets"
   import pygame
+  def main():
+      pygame.init()
+      screen = pygame.display.set_mode((1280, 720))
+      clock = pygame.time.Clock()
+      running = True
 
-  pygame.init()
-  screen = pygame.display.set_mode((1280, 720))
-  clock = pygame.time.Clock()
-  running = True
+      while running:
+          for event in pygame.event.get():
+              if event.type == pygame.QUIT:
+                  running = False
 
-  while running:
-      for event in pygame.event.get():
-          if event.type == pygame.QUIT:
-              running = False
+          screen.fill("white")
 
-      screen.fill("white")
+          ##### RENDER YOUR GAME HERE
 
-      ##### RENDER YOUR GAME HERE
+          pygame.display.flip()
 
-      pygame.display.flip()
+          clock.tick(60)
 
-      clock.tick(60)
+      pygame.quit()
 
-  pygame.quit()
+      return None
+
+  if __name__ == "__main__":
+      main()
+
+

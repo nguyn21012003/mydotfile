@@ -31,7 +31,7 @@ return {
 			},
 			cmdline = {
 				enabled = true,
-				view = "cmdline",
+				view = "cmdline_popup",
 				format = {
 					cmdline = {
 						-- icon = ":",

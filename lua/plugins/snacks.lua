@@ -39,6 +39,7 @@ return {
 			},
 			image = {
 				enabled = true,
+				backend = "kitty",
 			},
 			terminal = {
 				enabled = true,
@@ -49,7 +50,7 @@ return {
 					position = "right",
 					width = 0.3,
 				},
-				shell = "fish",
+				shell = "nu",
 			},
 		},
 	},
