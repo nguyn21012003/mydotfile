@@ -90,6 +90,22 @@ return {
 							"--all-scopes-completion",
 						},
 					},
+					ty = {
+						enabled = true,
+						on_attach = function(client)
+							client.server_capabilities.inlayHintProvider = false
+						end,
+						settings = {
+							ty = {
+								diagnostics = {
+									disable = { "not-iterable" },
+								},
+							},
+						},
+					},
+					jedi = {
+						enabled = false,
+					},
 					-- copilot = {},
 					fortls = {},
 					-- lua_ls = {

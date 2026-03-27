@@ -12,20 +12,8 @@ return {
 			},
 			dashboard = {
 				preset = {
-					-- 					header = [[
-					--         --                 _.u[[/;:,.         .odMMMMMM'
-					--         --              .o888UU[[[/;:-.  .o@P^    MMM^
-					--         --             oN88888UU[[[/;::-.        dP^
-					--         --            dNMMNN888UU[[[/;:--.   .o@P^
-					--         --           ,MMMMMMN888UU[[/;::-. o@^
-					--         --           NNMMMNN888UU[[[/~.o@P^
-					--         --           888888888UU[[[/o@^-..
-					--         --          oI8888UU[[[/o@P^:--..
-					--         --       .@^  YUU[[[/o@^;::---..
-					--         --     oMP     ^/o@P^;:::---..
-					--         --  .dMMM    .o@^ ^;::---...
-					--         -- dMMMMMMM@^`       `^^^^
-					-- ]],
+					header = [[
+					 ]],
 				},
 			},
 			scroll = {
@@ -38,7 +26,7 @@ return {
 				enabled = false,
 			},
 			image = {
-				enabled = true,
+				enabled = false,
 				backend = "kitty",
 			},
 			terminal = {
@@ -48,7 +36,7 @@ return {
 				},
 				win = {
 					position = "right",
-					width = 0.3,
+					width = 0.35,
 				},
 				shell = "nu",
 			},
