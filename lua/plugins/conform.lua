@@ -11,6 +11,6 @@ return {
 			python = { "ruff_format", "ruff_organize_imports" },
 			fortran = { "fprettify" },
 		},
-		default_format_opts = { async = true, lsp_fallback = true },
+		-- default_format_opts = { async = true, lsp_fallback = true },
 	},
 }

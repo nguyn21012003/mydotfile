@@ -4,6 +4,7 @@ local icons = {
 	Case = "󰬶",
 	Class = "󰠱",
 	Color = "󰏘",
+	Copilot = "",
 	Constant = "󰏿",
 	Constructor = "",
 	Continue = "󰞘",
@@ -55,6 +56,7 @@ return {
 			"rafamadriz/friendly-snippets",
 			"roobert/tailwindcss-colorizer-cmp.nvim",
 			"erooke/blink-cmp-latex",
+			"fang2hou/blink-copilot",
 			{
 				"saghen/blink.compat",
 				optional = true, -- make optional so it's only enabled if any extras need it
@@ -70,8 +72,13 @@ return {
 				preset = "luasnip",
 			},
 			sources = {
-				default = { "latex" },
+				default = { "latex", "copilot" },
 				providers = {
+					copilot = {
+						name = "copilot",
+						module = "blink-copilot",
+						async = true,
+					},
 					latex = {
 						name = "Latex",
 						module = "blink-cmp-latex",

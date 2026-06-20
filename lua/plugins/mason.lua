@@ -53,6 +53,7 @@ return {
 			opts = {
 				servers = {
 					tailwindcss = {
+						enabled = false,
 						filetypes = { "html", "css", "scss", "sass", "typescript", "typescriptreact", "vue" },
 						root_markers = {
 							"tailwind.config.js",
@@ -62,6 +63,7 @@ return {
 						},
 					},
 					ruff = {
+						enabled = true,
 						on_attach = function(client)
 							client.server_capabilities.hoverProvider = false
 						end,
@@ -91,9 +93,9 @@ return {
 						},
 					},
 					ty = {
-						enabled = true,
+						enabled = false,
 						on_attach = function(client)
-							client.server_capabilities.inlayHintProvider = false
+							client.server_capabilities.inlayHintProvider = true
 						end,
 						settings = {
 							ty = {
@@ -104,7 +106,12 @@ return {
 						},
 					},
 					jedi = {
-						enabled = false,
+						enabled = true,
+						on_attach = function(client, bufnr)
+							client.server_capabilities.documentFormattingProvider = false
+							client.server_capabilities.documentRangeFormattingProvider = false
+							client.server_capabilities.renameProvider = false
+						end,
 					},
 					-- copilot = {},
 					fortls = {},

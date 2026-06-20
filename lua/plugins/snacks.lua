@@ -35,8 +35,9 @@ return {
 					height = 0.4,
 				},
 				win = {
-					position = "right",
+					position = "bottom",
 					width = 0.35,
+					height = 0.25,
 				},
 				shell = "nu",
 			},

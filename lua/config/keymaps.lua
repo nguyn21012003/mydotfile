@@ -161,23 +161,23 @@ local function open_todo_dir()
 	require("snacks").explorer({ cwd = todo_dir })
 end
 
-vim.keymap.set("n", "<leader>td", create_todo_file, { desc = "Create todo file" })
-vim.keymap.set("n", "<leader>to", open_todo_dir, { desc = "Open todo folder" })
+map("n", "<leader>td", create_todo_file, { desc = "Create todo file" })
+map("n", "<leader>to", open_todo_dir, { desc = "Open todo folder" })
 
 -- vim.keymap.del("n", "<C-Up>")
 -- vim.keymap.del("n", "<C-Down>")
 
 --- Normal mode
-vim.keymap.set("n", "<S-Up>", "<Nop>")
-vim.keymap.set("n", "<S-Down>", "<Nop>")
+map("n", "<S-Up>", "<Nop>")
+map("n", "<S-Down>", "<Nop>")
 
 -- Insert mode
-vim.keymap.set("i", "<S-Up>", "<Nop>")
-vim.keymap.set("i", "<S-Down>", "<Nop>")
+map("i", "<S-Up>", "<Nop>")
+map("i", "<S-Down>", "<Nop>")
 
 -- Visual mode
-vim.keymap.set("v", "<S-Up>", "<Nop>")
-vim.keymap.set("v", "<S-Down>", "<Nop>")
+map("v", "<S-Up>", "<Nop>")
+map("v", "<S-Down>", "<Nop>")
 
-vim.keymap.set({ "n", "v", "i" }, "<PageUp>", "<Nop>", opts)
-vim.keymap.set({ "n", "v", "i" }, "<PageDown>", "<Nop>", opts)
+map({ "n", "v", "i" }, "<PageUp>", "<Nop>", opts)
+map({ "n", "v", "i" }, "<PageDown>", "<Nop>", opts)

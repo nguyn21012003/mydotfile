@@ -88,3 +88,21 @@ vim.api.nvim_create_autocmd("FileType", {
 		-- vim.cmd.colorscheme("tokyonight-day")
 	end,
 })
+local orig = vim.lsp.handlers["textDocument/rename"]
+
+local orig = vim.lsp.handlers["textDocument/rename"]
+
+vim.lsp.handlers["textDocument/rename"] = function(err, result, ctx, config)
+	if result and result.documentChanges then
+		for _, change in ipairs(result.documentChanges) do
+			if change.edits then
+				for _, e in ipairs(change.edits) do
+					if e.newText then
+						e.newText = e.newText:gsub("\r", "")
+					end
+				end
+			end
+		end
+	end
+	return orig(err, result, ctx, config)
+end
